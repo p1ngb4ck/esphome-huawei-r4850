@@ -23,18 +23,24 @@ wifi:
 
 web_server:
 
+#canbus:
+#  - platform: esp32_can
+#    id: can
+#    tx_pin: GPIO14
+#    rx_pin: GPIO27
+#    use_extended_id: true
+#    can_id: 0
+#    bit_rate: 125kbps
+
+# mcp2515 alternative
 canbus:
-  - platform: esp32_can
-    id: can
-    tx_pin: GPIO14
-    rx_pin: GPIO27
-    use_extended_id: true
-    can_id: 0
+  - platform: mcp2515
+    cs_pin: GPIO15
+    can_id: can_id
     bit_rate: 125kbps
 
-
 huawei_r4850:
-  canbus_id: can
+  canbus_id: can_id
   update_interval: 5s
 
 sensor:
