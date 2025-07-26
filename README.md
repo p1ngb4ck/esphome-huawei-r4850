@@ -10,6 +10,7 @@
 ### Requirements
 This component is currently tested and verified to work on a ESP32 using the Esphome **esp32_can** platform. So in addition to any **ESP32 board** of your choice you need a CAN tranceiver like the **sn65hvd230**. These are cheap and available from many sources and can be wired directly to the 3.3v GPIO and supply pins of the ESP32 board.
 In theory it should work also with the mcp2515 platform, but this is currently not tested and verified.
+
 **Update**: Tested with modified MCP2515 board (the cheap blue one). Modifications required are stated on https://github.com/KlausLi/Esp-HuaweiR4850-Controller further down in the readme.
 Works with both 8MHz & 16MHz crystals (tested by swapping my 8MHz one with a 16MHz one).
 Will keep trying to build cheap pluggable circuit using levelshifters, w/o modifications required - was not successful yet.
