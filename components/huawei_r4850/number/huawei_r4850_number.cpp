@@ -37,11 +37,11 @@ void HuaweiR4850Number::control(float value) {
 
 void HuaweiR4850Number::resend_state() {
   if (this->last_state_.has_value()) {
-    this->send_state_(this->last_state_.value());
+    this->send_state(this->last_state_.value());
   }
 }
 
-void HuaweiR4850Number::send_state_(float value) {
+void HuaweiR4850Number::send_state(float value) {
   switch (this->registerId_)
   {
     case SET_VOLTAGE_FUNCTION:
