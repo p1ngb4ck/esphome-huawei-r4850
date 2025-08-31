@@ -53,9 +53,9 @@ void HuaweiR4850Component::setup() {
 
   // all bits masked away by the mask also have to be set 0 on the id
   // assert(canid_id == (canid_id & canid_mask));
-  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, canid_id, 0, true);
+  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, 0, 0, true);
   canbus_canbustrigger->set_component_source("canbus");
-  this->canbus::add_trigger(canbus_canbustrigger);
+  canbus::add_trigger(canbus_canbustrigger);
   App.register_component(canbus_canbustrigger);
   automation = new Automation<std::vector<uint8_t>, uint32_t, bool>(canbus_canbustrigger);
   auto cb = [this](std::vector<uint8_t> x, uint32_t can_id, bool remote_transmission_request) -> void {
