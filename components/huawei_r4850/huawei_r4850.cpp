@@ -95,8 +95,8 @@ void HuaweiR4850Component::update() {
   }
 #endif
 
-  // no new value for 5* intervall -> set sensors to NAN)
-  if (this->lastUpdate_ != 0 && (millis() - this->lastUpdate_ > this->update_interval_ * 5)) {
+  // no new value for 20* intervall -> set sensors to NAN)
+  if (this->lastUpdate_ != 0 && (millis() - this->lastUpdate_ > this->update_interval_ * 20)) {
 #ifdef USE_SENSOR
     this->publish_sensor_state_(this->input_power_sensor_, NAN);
     this->publish_sensor_state_(this->input_voltage_sensor_, NAN);
