@@ -33,10 +33,10 @@ static const uint16_t R48xx_DATA_FAN_STATUS = 0x187;
 
 HuaweiR4850Component::HuaweiR4850Component(canbus::Canbus *canbus) { this->canbus = canbus; }
 
-void HuaweiR4850Component::setup() {
-  Automation<std::vector<uint8_t>, uint32_t, bool> *automation;
-  LambdaAction<std::vector<uint8_t>, uint32_t, bool> *lambdaaction;
-  canbus::CanbusTrigger *canbus_canbustrigger;
+//void HuaweiR4850Component::setup() {
+//  Automation<std::vector<uint8_t>, uint32_t, bool> *automation;
+//  LambdaAction<std::vector<uint8_t>, uint32_t, bool> *lambdaaction;
+//  canbus::CanbusTrigger *canbus_canbustrigger;
 
   // match the CAN id so we don't get flooded with unsolicited messages / messages from other PSUs.
   // match for (binary) 0001 0000 1aaa aaaa xxxx xxxx 0111 111x
@@ -44,22 +44,38 @@ void HuaweiR4850Component::setup() {
 
   // example ID
   // -> 0001 0000 1aaa aaaa 0000 0000 0111 1110
-  uint32_t canid_id = this->canid_pack_(this->psu_addr_, 0x00, false, false);
+//  uint32_t canid_id = this->canid_pack_(this->psu_addr_, 0x00, false, false);
 
   // set everything that has to match ID
   // (proto ID, address, msg src, group mask, hw/sw addr)
   // -> 1111 1111 1111 1111 0000 0000 1111 1110
-  uint32_t canid_mask = 0xFFFF00FE;
+//  uint32_t canid_mask = 0xFFFF00FE;
 
   // all bits masked away by the mask also have to be set 0 on the id
-  assert(canid_id == (canid_id & canid_mask));
+//  assert(canid_id == (canid_id & canid_mask));
 
   //canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, canid_id, canid_mask, true);
+//  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, 0, 0, true);
+//  canbus_canbustrigger->set_component_source("canbus");
+//  App.register_component(canbus_canbustrigger);
+//  automation = new Automation<std::vector<uint8_t>, uint32_t, bool>(canbus_canbustrigger);
+//  auto cb = [this](std::vector<uint8_t> x, uint32_t can_id, bool remote_transmission_request) -> void {
+//    this->on_frame(can_id, remote_transmission_request, x);
+//  };
+//  lambdaaction = new LambdaAction<std::vector<uint8_t>, uint32_t, bool>(cb);
+//  automation->add_actions({lambdaaction});
+//}
+
+void HuaweiR4850Component::setup() {
+  Automation<std::vector<uint8_t>, uint32_t, bool> *automation;
+  LambdaAction<std::vector<uint8_t>, uint32_t, bool> *lambdaaction;
+  canbus::CanbusTrigger *canbus_canbustrigger;
+
   canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, 0, 0, true);
   canbus_canbustrigger->set_component_source("canbus");
   App.register_component(canbus_canbustrigger);
   automation = new Automation<std::vector<uint8_t>, uint32_t, bool>(canbus_canbustrigger);
-  auto cb = [this](std::vector<uint8_t> x, uint32_t can_id, bool remote_transmission_request) -> void {
+  auto cb = [=](std::vector<uint8_t> x, uint32_t can_id, bool remote_transmission_request) -> void {
     this->on_frame(can_id, remote_transmission_request, x);
   };
   lambdaaction = new LambdaAction<std::vector<uint8_t>, uint32_t, bool>(cb);
