@@ -20,6 +20,7 @@ class HuaweiR4850Number : public number::Number, public Component, public Huawei
   void handle_error(uint16_t register_id, std::vector<uint8_t> &data) override;
   void handle_timeout() override;
   void resend_state() override;
+  void send_state(float value);
 
  protected:
   HuaweiR4850Component *parent_;
@@ -27,7 +28,6 @@ class HuaweiR4850Number : public number::Number, public Component, public Huawei
   std::optional<float> last_state_;
   bool restore_value_{false};
 
-  void send_state_(float value);
   void control(float value) override;
 
   ESPPreferenceObject pref_;
