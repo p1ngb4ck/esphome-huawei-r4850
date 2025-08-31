@@ -49,7 +49,7 @@ void HuaweiR4850Component::setup() {
   // set everything that has to match ID
   // (proto ID, address, msg src, group mask, hw/sw addr)
   // -> 1111 1111 1111 1111 0000 0000 1111 1110
-  uint32_t canid_mask = 0x0;
+  uint32_t canid_mask = 0xFFFF00FE;
 
   // all bits masked away by the mask also have to be set 0 on the id
   assert(canid_id == (canid_id & canid_mask));
