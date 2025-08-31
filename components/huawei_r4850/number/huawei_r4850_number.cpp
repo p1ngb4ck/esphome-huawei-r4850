@@ -30,7 +30,7 @@ void HuaweiR4850Number::set_parent(HuaweiR4850Component *parent, uint16_t regist
 }
 void HuaweiR4850Number::control(float value) {
   this->last_state_ = value;
-  this->send_state_(value);
+  this->send_state(value);
   if (this->restore_value_)
     this->pref_.save(&value);
 }
