@@ -44,17 +44,17 @@ void HuaweiR4850Component::setup() {
 
   // example ID
   // -> 0001 0000 1aaa aaaa 0000 0000 0111 1110
-  uint32_t canid_id = this->canid_pack_(this->psu_addr_, 0x00, false, false);
+  //uint32_t canid_id = this->canid_pack_(this->psu_addr_, 0x00, false, false);
 
   // set everything that has to match ID
   // (proto ID, address, msg src, group mask, hw/sw addr)
   // -> 1111 1111 1111 1111 0000 0000 1111 1110
-  uint32_t canid_mask = 0xFFFF00FE;
+  //uint32_t canid_mask = 0xFFFF00FE;
 
   // all bits masked away by the mask also have to be set 0 on the id
-  assert(canid_id == (canid_id & canid_mask));
+  //assert(canid_id == (canid_id & canid_mask));
 
-  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, canid_id, canid_mask, true);
+  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, 0, 0, true);
   canbus_canbustrigger->set_component_source("canbus");
   App.register_component(canbus_canbustrigger);
   automation = new Automation<std::vector<uint8_t>, uint32_t, bool>(canbus_canbustrigger);
