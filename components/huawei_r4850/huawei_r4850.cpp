@@ -77,6 +77,11 @@ void HuaweiR4850Component::resend_inputs() {
   }
 }
 
+void HuaweiR4850Component::send_input(uint8_t num_input) {
+    auto &input = this->registered_inputs_[num_input];
+    input->resend_state();
+}
+
 void HuaweiR4850Component::update() {
   ESP_LOGD(TAG, "Sending request message");
   {
