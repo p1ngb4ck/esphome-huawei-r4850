@@ -49,11 +49,11 @@ void HuaweiR4850Component::setup() {
   // set everything that has to match ID
   // (proto ID, address, msg src, group mask, hw/sw addr)
   // -> 1111 1111 1111 1111 0000 0000 1111 1110
-  uint32_t canid_mask = 0xFFFF00FE;
+  // uint32_t canid_mask = 0xFFFF00FE;
 
   // all bits masked away by the mask also have to be set 0 on the id
   assert(canid_id == (canid_id & canid_mask));
-  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, canid_id, canid_mask, true);
+  canbus_canbustrigger = new canbus::CanbusTrigger(this->canbus, canid_id, 0, true);
   canbus_canbustrigger->set_component_source("canbus");
   canbus->add_trigger(canbus_canbustrigger);
   App.register_component(canbus_canbustrigger);
@@ -142,7 +142,6 @@ void HuaweiR4850Component::on_frame(uint32_t can_id, bool rtr, std::vector<uint8
   uint8_t psu_addr, cmd;
   bool src_controller, incomplete;
   this->canid_unpack_(can_id, &psu_addr, &cmd, &src_controller, &incomplete);
-  ESP_LOGV(TAG, "Received frame %08", message);
   if (psu_addr != this->psu_addr_ || src_controller) {
     return; // shouldn't happen due to can id mask
   }
