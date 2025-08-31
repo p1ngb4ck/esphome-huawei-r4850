@@ -80,7 +80,7 @@ class HuaweiR4850Component : public PollingComponent {
 
   void set_resend_interval(uint32_t interval);
   void resend_inputs();
-  void send_input(HuaweiR4850Input input);
+  void send_input(uint8_t num_input);
 
  protected:
   canbus::Canbus *canbus;
