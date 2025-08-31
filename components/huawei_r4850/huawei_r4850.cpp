@@ -152,6 +152,7 @@ void HuaweiR4850Component::set_value(uint16_t register_id, std::vector<uint8_t> 
 }
 
 void HuaweiR4850Component::on_frame(uint32_t can_id, bool rtr, std::vector<uint8_t> &message) {
+  ESP_LOGV(TAG, "Received frame with can_id %08h", can_id);
   if (message.size() < 8) {
     return;
   }
@@ -159,7 +160,7 @@ void HuaweiR4850Component::on_frame(uint32_t can_id, bool rtr, std::vector<uint8
   uint8_t psu_addr, cmd;
   bool src_controller, incomplete;
   this->canid_unpack_(can_id, &psu_addr, &cmd, &src_controller, &incomplete);
-  ESP_LOGV(TAG, "Received frame with can_id %08h", can_id);
+  
   if (psu_addr != this->psu_addr_ || src_controller) {
     return; // shouldn't happen due to can id mask
   }
